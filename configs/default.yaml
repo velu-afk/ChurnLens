@@ -1,0 +1,56 @@
+# Default Configuration for ChurnLens Customer Churn Prediction Pipeline
+
+project_name: "ChurnLens"
+random_seed: 42
+
+data:
+  raw_csv_path: "data/raw/Telco-Customer-Churn.csv"
+  source_url: "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
+  use_synthetic_fixture: false
+  synthetic_n_samples: 600
+  target_column: "Churn"
+  positive_label_str: "Yes"
+  negative_label_str: "No"
+  id_columns:
+    - "customerID"
+    - "CustomerID"
+  leakage_columns:
+    - "Churn"
+    - "Churn Value"
+    - "Churn Score"
+    - "Churn Reason"
+    - "Customer Status"
+  test_size: 0.20             # Stratified 80% train / 20% test split
+  val_size_from_train: 0.20   # 20% of training set (16% of total) isolated for threshold selection
+
+preprocessing:
+  numeric_impute_strategy: "median"
+  categorical_impute_strategy: "most_frequent"
+  scale_numeric: true
+
+models:
+  logistic_regression:
+    C: 1.0
+    class_weight: "balanced"
+    max_iter: 1000
+    solver: "lbfgs"
+  random_forest:
+    n_estimators: 120
+    max_depth: 8
+    min_samples_split: 6
+    min_samples_leaf: 3
+    max_features: "sqrt"
+    class_weight: "balanced"
+
+evaluation:
+  default_threshold: 0.50
+  threshold_grid_min: 0.20
+  threshold_grid_max: 0.80
+  threshold_grid_steps: 25
+  threshold_selection_metric: "f1"   # Tuned strictly on validation split, never on test split
+  permutation_importance_repeats: 5
+  output_dir: "results"
+  save_models: true
+  # Illustrative assumptions for retention outreach prioritization table (not real business claims)
+  illustrative_outreach_top_k_fraction: 0.20
+  illustrative_outreach_cost_per_customer_usd: 15.0

@@ -1,0 +1,5 @@
+model,threshold_policy,threshold,accuracy,precision,recall,f1,roc_auc,tp,fp,fn,tn,data_source
+logistic_regression,Default (0.50),0.5,0.75,0.461538,0.923077,0.615385,0.845745,24,28,2,66,synthetic_fixture
+logistic_regression,Val-Tuned,0.375,0.666667,0.390625,0.961538,0.555556,0.845745,25,39,1,55,synthetic_fixture
+random_forest,Default (0.50),0.5,0.841667,0.652174,0.576923,0.612245,0.86293,15,8,11,86,synthetic_fixture
+random_forest,Val-Tuned,0.375,0.741667,0.444444,0.769231,0.56338,0.86293,20,25,6,69,synthetic_fixture

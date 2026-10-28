@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "ChurnLens: An End-to-End Customer Churn Prediction and Model Evaluation Pipeline"
+message: "If you reference this software repository, please cite it using the metadata below. Third-party datasets (such as the IBM Telco Customer Churn dataset) remain subject to their original provider terms."
+type: software
+authors:
+  - name: "ChurnLens Contributors"
+version: 0.1.0
+date-released: "2026-10-28"
+license: MIT
+keywords:
+  - customer-churn
+  - machine-learning
+  - scikit-learn
+  - logistic-regression
+  - random-forest
+references:
+  - type: software
+    title: "Telco Customer Churn on ICP4D Sample Dataset"
+    authors:
+      - name: "IBM Developer / IBM Sample Data"
+    url: "https://github.com/IBM/telco-customer-churn-on-icp4d"

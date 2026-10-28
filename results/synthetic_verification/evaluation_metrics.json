@@ -1,0 +1,1680 @@
+{
+  "project_name": "ChurnLens",
+  "data_source": "synthetic_fixture",
+  "is_synthetic_fixture": true,
+  "random_seed": 42,
+  "dataset_summary": {
+    "n_rows": 600,
+    "n_columns": 21,
+    "columns": [
+      "customerID",
+      "gender",
+      "SeniorCitizen",
+      "Partner",
+      "Dependents",
+      "tenure",
+      "PhoneService",
+      "MultipleLines",
+      "InternetService",
+      "OnlineSecurity",
+      "OnlineBackup",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "StreamingMovies",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod",
+      "MonthlyCharges",
+      "TotalCharges",
+      "Churn"
+    ],
+    "duplicate_rows": 0,
+    "duplicate_customer_ids": 0,
+    "blank_numeric_strings_coerced_to_nan": {
+      "tenure": 0,
+      "MonthlyCharges": 0,
+      "TotalCharges": 12,
+      "SeniorCitizen": 0
+    },
+    "missing_values_by_column": {
+      "TotalCharges": 12
+    },
+    "total_missing_values": 12,
+    "target_column": "Churn",
+    "positive_label": "Yes",
+    "target_counts": {
+      "No": 469,
+      "Yes": 131
+    },
+    "positive_class_count": 131,
+    "negative_class_count": 469,
+    "positive_class_rate": 0.218333
+  },
+  "split_sizes": {
+    "train_full": 480,
+    "subtrain": 384,
+    "validation": 96,
+    "test": 120,
+    "numeric_features": [
+      "SeniorCitizen",
+      "tenure",
+      "MonthlyCharges",
+      "TotalCharges"
+    ],
+    "categorical_features": [
+      "gender",
+      "Partner",
+      "Dependents",
+      "PhoneService",
+      "MultipleLines",
+      "InternetService",
+      "OnlineSecurity",
+      "OnlineBackup",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "StreamingMovies",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod"
+    ],
+    "dropped_columns": [
+      "customerID",
+      "Churn"
+    ]
+  },
+  "config": {
+    "project_name": "ChurnLens",
+    "random_seed": 42,
+    "data": {
+      "raw_csv_path": "data/raw/Telco-Customer-Churn.csv",
+      "source_url": "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv",
+      "use_synthetic_fixture": true,
+      "synthetic_n_samples": 600,
+      "target_column": "Churn",
+      "positive_label_str": "Yes",
+      "negative_label_str": "No",
+      "id_columns": [
+        "customerID",
+        "CustomerID"
+      ],
+      "leakage_columns": [
+        "Churn",
+        "Churn Value",
+        "Churn Score",
+        "Churn Reason",
+        "Customer Status"
+      ],
+      "test_size": 0.2,
+      "val_size_from_train": 0.2
+    },
+    "preprocessing": {
+      "numeric_impute_strategy": "median",
+      "categorical_impute_strategy": "most_frequent",
+      "scale_numeric": true
+    },
+    "models": {
+      "logistic_regression": {
+        "C": 1.0,
+        "class_weight": "balanced",
+        "max_iter": 1000,
+        "solver": "lbfgs"
+      },
+      "random_forest": {
+        "n_estimators": 120,
+        "max_depth": 8,
+        "min_samples_split": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "class_weight": "balanced"
+      }
+    },
+    "evaluation": {
+      "default_threshold": 0.5,
+      "threshold_grid_min": 0.2,
+      "threshold_grid_max": 0.8,
+      "threshold_grid_steps": 25,
+      "threshold_selection_metric": "f1",
+      "permutation_importance_repeats": 5,
+      "output_dir": "results/synthetic_verification",
+      "save_models": true,
+      "illustrative_outreach_top_k_fraction": 0.2,
+      "illustrative_outreach_cost_per_customer_usd": 15.0
+    }
+  },
+  "environment": {
+    "os_platform": "Linux-6.12.105+-x86_64-with-glibc2.36",
+    "python_version": "3.11.2",
+    "cpu_count": 2,
+    "disk_free_gb": 17.73,
+    "packages": {
+      "numpy": "1.24.2",
+      "scipy": "1.15.2",
+      "pandas": "2.2.3",
+      "scikit_learn": "1.5.2-sandbox",
+      "matplotlib": "3.10.1",
+      "pyyaml": "6.0",
+      "joblib": "1.4.2-sandbox"
+    }
+  },
+  "models": {
+    "logistic_regression": {
+      "model_name": "logistic_regression",
+      "default_threshold_metrics": {
+        "threshold": 0.5,
+        "accuracy": 0.75,
+        "precision": 0.461538,
+        "recall": 0.923077,
+        "f1": 0.615385,
+        "roc_auc": 0.845745,
+        "confusion_matrix": [
+          [
+            66,
+            28
+          ],
+          [
+            2,
+            24
+          ]
+        ],
+        "tn": 66,
+        "fp": 28,
+        "fn": 2,
+        "tp": 24,
+        "classification_report_text": "              precision    recall  f1-score   support\n\nNo Churn (0)       0.97      0.70      0.81        94\n   Churn (1)       0.46      0.92      0.62        26\n\n    accuracy                           0.75       120\n   macro avg       0.72      0.81      0.72       120\nweighted avg       0.86      0.75      0.77       120",
+        "classification_report": {
+          "No Churn (0)": {
+            "precision": 0.9705882352941176,
+            "recall": 0.7021276595744681,
+            "f1-score": 0.8148148148148149,
+            "support": 94
+          },
+          "Churn (1)": {
+            "precision": 0.46153846153846156,
+            "recall": 0.9230769230769231,
+            "f1-score": 0.6153846153846155,
+            "support": 26
+          },
+          "accuracy": 0.75,
+          "macro avg": {
+            "precision": 0.7160633484162896,
+            "recall": 0.8126022913256956,
+            "f1-score": 0.7150997150997151,
+            "support": 120
+          },
+          "weighted avg": {
+            "precision": 0.8602941176470588,
+            "recall": 0.75,
+            "f1-score": 0.771604938271605,
+            "support": 120
+          }
+        }
+      },
+      "validation_selected_threshold": 0.375,
+      "validation_tuned_threshold_metrics": {
+        "threshold": 0.375,
+        "accuracy": 0.666667,
+        "precision": 0.390625,
+        "recall": 0.961538,
+        "f1": 0.555556,
+        "roc_auc": 0.845745,
+        "confusion_matrix": [
+          [
+            55,
+            39
+          ],
+          [
+            1,
+            25
+          ]
+        ],
+        "tn": 55,
+        "fp": 39,
+        "fn": 1,
+        "tp": 25,
+        "classification_report_text": "              precision    recall  f1-score   support\n\nNo Churn (0)       0.98      0.59      0.73        94\n   Churn (1)       0.39      0.96      0.56        26\n\n    accuracy                           0.67       120\n   macro avg       0.69      0.77      0.64       120\nweighted avg       0.85      0.67      0.69       120",
+        "classification_report": {
+          "No Churn (0)": {
+            "precision": 0.9821428571428571,
+            "recall": 0.5851063829787234,
+            "f1-score": 0.7333333333333334,
+            "support": 94
+          },
+          "Churn (1)": {
+            "precision": 0.390625,
+            "recall": 0.9615384615384616,
+            "f1-score": 0.5555555555555556,
+            "support": 26
+          },
+          "accuracy": 0.6666666666666666,
+          "macro avg": {
+            "precision": 0.6863839285714286,
+            "recall": 0.7733224222585925,
+            "f1-score": 0.6444444444444445,
+            "support": 120
+          },
+          "weighted avg": {
+            "precision": 0.8539806547619047,
+            "recall": 0.6666666666666666,
+            "f1-score": 0.6948148148148149,
+            "support": 120
+          }
+        }
+      },
+      "validation_threshold_curve": [
+        {
+          "threshold": 0.2,
+          "precision": 0.28169,
+          "recall": 0.952381,
+          "f1": 0.434783
+        },
+        {
+          "threshold": 0.225,
+          "precision": 0.287879,
+          "recall": 0.904762,
+          "f1": 0.436782
+        },
+        {
+          "threshold": 0.25,
+          "precision": 0.292308,
+          "recall": 0.904762,
+          "f1": 0.44186
+        },
+        {
+          "threshold": 0.275,
+          "precision": 0.311475,
+          "recall": 0.904762,
+          "f1": 0.463415
+        },
+        {
+          "threshold": 0.3,
+          "precision": 0.327586,
+          "recall": 0.904762,
+          "f1": 0.481013
+        },
+        {
+          "threshold": 0.325,
+          "precision": 0.333333,
+          "recall": 0.904762,
+          "f1": 0.487179
+        },
+        {
+          "threshold": 0.35,
+          "precision": 0.345455,
+          "recall": 0.904762,
+          "f1": 0.5
+        },
+        {
+          "threshold": 0.375,
+          "precision": 0.358491,
+          "recall": 0.904762,
+          "f1": 0.513514
+        },
+        {
+          "threshold": 0.4,
+          "precision": 0.36,
+          "recall": 0.857143,
+          "f1": 0.507042
+        },
+        {
+          "threshold": 0.425,
+          "precision": 0.340426,
+          "recall": 0.761905,
+          "f1": 0.470588
+        },
+        {
+          "threshold": 0.45,
+          "precision": 0.357143,
+          "recall": 0.714286,
+          "f1": 0.47619
+        },
+        {
+          "threshold": 0.475,
+          "precision": 0.358974,
+          "recall": 0.666667,
+          "f1": 0.466667
+        },
+        {
+          "threshold": 0.5,
+          "precision": 0.342857,
+          "recall": 0.571429,
+          "f1": 0.428571
+        },
+        {
+          "threshold": 0.525,
+          "precision": 0.387097,
+          "recall": 0.571429,
+          "f1": 0.461538
+        },
+        {
+          "threshold": 0.55,
+          "precision": 0.4,
+          "recall": 0.571429,
+          "f1": 0.470588
+        },
+        {
+          "threshold": 0.575,
+          "precision": 0.428571,
+          "recall": 0.571429,
+          "f1": 0.489796
+        },
+        {
+          "threshold": 0.6,
+          "precision": 0.444444,
+          "recall": 0.571429,
+          "f1": 0.5
+        },
+        {
+          "threshold": 0.625,
+          "precision": 0.461538,
+          "recall": 0.571429,
+          "f1": 0.510638
+        },
+        {
+          "threshold": 0.65,
+          "precision": 0.458333,
+          "recall": 0.52381,
+          "f1": 0.488889
+        },
+        {
+          "threshold": 0.675,
+          "precision": 0.5,
+          "recall": 0.47619,
+          "f1": 0.487805
+        },
+        {
+          "threshold": 0.7,
+          "precision": 0.555556,
+          "recall": 0.47619,
+          "f1": 0.512821
+        },
+        {
+          "threshold": 0.725,
+          "precision": 0.529412,
+          "recall": 0.428571,
+          "f1": 0.473684
+        },
+        {
+          "threshold": 0.75,
+          "precision": 0.538462,
+          "recall": 0.333333,
+          "f1": 0.411765
+        },
+        {
+          "threshold": 0.775,
+          "precision": 0.6,
+          "recall": 0.285714,
+          "f1": 0.387097
+        },
+        {
+          "threshold": 0.8,
+          "precision": 0.571429,
+          "recall": 0.190476,
+          "f1": 0.285714
+        }
+      ],
+      "roc_curve": {
+        "fpr": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.010638,
+          0.010638,
+          0.021277,
+          0.021277,
+          0.021277,
+          0.021277,
+          0.031915,
+          0.042553,
+          0.053191,
+          0.06383,
+          0.06383,
+          0.06383,
+          0.074468,
+          0.074468,
+          0.074468,
+          0.074468,
+          0.085106,
+          0.095745,
+          0.095745,
+          0.095745,
+          0.106383,
+          0.117021,
+          0.12766,
+          0.138298,
+          0.148936,
+          0.159574,
+          0.170213,
+          0.170213,
+          0.180851,
+          0.180851,
+          0.191489,
+          0.202128,
+          0.212766,
+          0.223404,
+          0.234043,
+          0.234043,
+          0.244681,
+          0.255319,
+          0.265957,
+          0.276596,
+          0.276596,
+          0.276596,
+          0.276596,
+          0.287234,
+          0.287234,
+          0.287234,
+          0.297872,
+          0.297872,
+          0.308511,
+          0.319149,
+          0.329787,
+          0.340426,
+          0.351064,
+          0.361702,
+          0.37234,
+          0.382979,
+          0.393617,
+          0.404255,
+          0.404255,
+          0.414894,
+          0.425532,
+          0.43617,
+          0.446809,
+          0.457447,
+          0.468085,
+          0.478723,
+          0.489362,
+          0.5,
+          0.510638,
+          0.521277,
+          0.531915,
+          0.542553,
+          0.553191,
+          0.56383,
+          0.574468,
+          0.585106,
+          0.595745,
+          0.606383,
+          0.617021,
+          0.62766,
+          0.638298,
+          0.648936,
+          0.659574,
+          0.670213,
+          0.680851,
+          0.691489,
+          0.702128,
+          0.702128,
+          0.712766,
+          0.723404,
+          0.734043,
+          0.744681,
+          0.755319,
+          0.765957,
+          0.776596,
+          0.787234,
+          0.797872,
+          0.808511,
+          0.819149,
+          0.829787,
+          0.840426,
+          0.851064,
+          0.861702,
+          0.87234,
+          0.882979,
+          0.893617,
+          0.904255,
+          0.914894,
+          0.925532,
+          0.93617,
+          0.946809,
+          0.957447,
+          0.968085,
+          0.978723,
+          0.989362,
+          1.0
+        ],
+        "tpr": [
+          0.0,
+          0.038462,
+          0.076923,
+          0.115385,
+          0.153846,
+          0.153846,
+          0.192308,
+          0.192308,
+          0.230769,
+          0.269231,
+          0.307692,
+          0.307692,
+          0.307692,
+          0.307692,
+          0.307692,
+          0.346154,
+          0.384615,
+          0.384615,
+          0.423077,
+          0.461538,
+          0.5,
+          0.5,
+          0.5,
+          0.538462,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.615385,
+          0.615385,
+          0.653846,
+          0.653846,
+          0.653846,
+          0.653846,
+          0.653846,
+          0.653846,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.730769,
+          0.769231,
+          0.807692,
+          0.807692,
+          0.846154,
+          0.884615,
+          0.884615,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "feature_importance": {
+        "permutation_importance": [
+          {
+            "feature": "MonthlyCharges",
+            "importance_mean": 0.148445,
+            "importance_std": 0.046693
+          },
+          {
+            "feature": "Contract",
+            "importance_mean": 0.10401,
+            "importance_std": 0.021647
+          },
+          {
+            "feature": "tenure",
+            "importance_mean": 0.094354,
+            "importance_std": 0.03742
+          },
+          {
+            "feature": "Partner",
+            "importance_mean": 0.013257,
+            "importance_std": 0.004797
+          },
+          {
+            "feature": "TechSupport",
+            "importance_mean": 0.011457,
+            "importance_std": 0.006763
+          },
+          {
+            "feature": "OnlineBackup",
+            "importance_mean": 0.008592,
+            "importance_std": 0.00712
+          },
+          {
+            "feature": "StreamingMovies",
+            "importance_mean": 0.005401,
+            "importance_std": 0.007173
+          },
+          {
+            "feature": "MultipleLines",
+            "importance_mean": 0.004746,
+            "importance_std": 0.003197
+          },
+          {
+            "feature": "gender",
+            "importance_mean": 0.004337,
+            "importance_std": 0.011138
+          },
+          {
+            "feature": "Dependents",
+            "importance_mean": 8.2e-05,
+            "importance_std": 0.000543
+          },
+          {
+            "feature": "OnlineSecurity",
+            "importance_mean": -0.000164,
+            "importance_std": 0.012123
+          },
+          {
+            "feature": "PhoneService",
+            "importance_mean": -0.000327,
+            "importance_std": 0.001782
+          },
+          {
+            "feature": "PaymentMethod",
+            "importance_mean": -0.000736,
+            "importance_std": 0.010153
+          },
+          {
+            "feature": "PaperlessBilling",
+            "importance_mean": -0.002782,
+            "importance_std": 0.003524
+          },
+          {
+            "feature": "TotalCharges",
+            "importance_mean": -0.003191,
+            "importance_std": 0.004485
+          },
+          {
+            "feature": "InternetService",
+            "importance_mean": -0.003764,
+            "importance_std": 0.003174
+          },
+          {
+            "feature": "SeniorCitizen",
+            "importance_mean": -0.004419,
+            "importance_std": 0.005875
+          },
+          {
+            "feature": "StreamingTV",
+            "importance_mean": -0.004501,
+            "importance_std": 0.002702
+          },
+          {
+            "feature": "DeviceProtection",
+            "importance_mean": -0.005974,
+            "importance_std": 0.006462
+          }
+        ],
+        "internal_transformed_importance": [
+          {
+            "transformed_feature": "cat__Contract_Month-to-month",
+            "importance": 1.101263,
+            "signed_coefficient": 1.101263,
+            "direction": "increases_churn_risk"
+          },
+          {
+            "transformed_feature": "num__tenure",
+            "importance": 0.970505,
+            "signed_coefficient": -0.970505,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "num__MonthlyCharges",
+            "importance": 0.9681,
+            "signed_coefficient": 0.9681,
+            "direction": "increases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__Contract_Two year",
+            "importance": 0.942192,
+            "signed_coefficient": -0.942192,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__OnlineSecurity_Yes",
+            "importance": 0.501672,
+            "signed_coefficient": -0.501672,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__TechSupport_Yes",
+            "importance": 0.484608,
+            "signed_coefficient": -0.484608,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__PaymentMethod_Mailed check",
+            "importance": 0.381442,
+            "signed_coefficient": -0.381442,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__OnlineBackup_Yes",
+            "importance": 0.361947,
+            "signed_coefficient": -0.361947,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__OnlineSecurity_No",
+            "importance": 0.360812,
+            "signed_coefficient": 0.360812,
+            "direction": "increases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__TechSupport_No",
+            "importance": 0.343749,
+            "signed_coefficient": 0.343749,
+            "direction": "increases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__PaymentMethod_Credit card (automatic)",
+            "importance": 0.313427,
+            "signed_coefficient": 0.313427,
+            "direction": "increases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__gender_Female",
+            "importance": 0.295256,
+            "signed_coefficient": 0.295256,
+            "direction": "increases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__gender_Male",
+            "importance": 0.295197,
+            "signed_coefficient": -0.295197,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__StreamingMovies_Yes",
+            "importance": 0.242965,
+            "signed_coefficient": -0.242965,
+            "direction": "decreases_churn_risk"
+          },
+          {
+            "transformed_feature": "cat__DeviceProtection_No",
+            "importance": 0.237428,
+            "signed_coefficient": -0.237428,
+            "direction": "decreases_churn_risk"
+          }
+        ]
+      },
+      "illustrative_retention_prioritization": {
+        "disclaimer": "Illustrative prioritization analysis only. Outreach costs ($15/customer) and tier sizes are hypothetical examples; real-world churn reduction requires an experimental A/B retention intervention study.",
+        "test_set_customers": 120,
+        "test_set_actual_churners": 26,
+        "baseline_churn_rate": 0.2167,
+        "tiers": [
+          {
+            "tier_label": "Top 10% Highest Risk",
+            "fraction_contacted": 0.1,
+            "customers_contacted": 12,
+            "min_probability_in_tier": 0.8433,
+            "true_churners_in_tier": 8,
+            "precision_in_tier": 0.6667,
+            "share_of_all_churners_captured": 0.3077,
+            "lift_over_random_outreach": 3.08,
+            "illustrative_outreach_cost_usd": 180.0
+          },
+          {
+            "tier_label": "Top 20% Highest Risk (Default Budget)",
+            "fraction_contacted": 0.2,
+            "customers_contacted": 24,
+            "min_probability_in_tier": 0.7537,
+            "true_churners_in_tier": 15,
+            "precision_in_tier": 0.625,
+            "share_of_all_churners_captured": 0.5769,
+            "lift_over_random_outreach": 2.88,
+            "illustrative_outreach_cost_usd": 360.0
+          },
+          {
+            "tier_label": "Top 30% Highest Risk",
+            "fraction_contacted": 0.3,
+            "customers_contacted": 36,
+            "min_probability_in_tier": 0.6712,
+            "true_churners_in_tier": 17,
+            "precision_in_tier": 0.4722,
+            "share_of_all_churners_captured": 0.6538,
+            "lift_over_random_outreach": 2.18,
+            "illustrative_outreach_cost_usd": 540.0
+          }
+        ]
+      },
+      "predicted_probabilities_sample": [
+        0.013211,
+        0.831655,
+        0.603421,
+        0.329942,
+        0.038748,
+        0.193834,
+        0.022465,
+        0.040271,
+        0.545412,
+        0.717657,
+        0.165684,
+        0.009575,
+        0.920182,
+        0.74021,
+        0.355499,
+        0.743981,
+        0.559243,
+        0.252005,
+        0.804565,
+        0.035801
+      ]
+    },
+    "random_forest": {
+      "model_name": "random_forest",
+      "default_threshold_metrics": {
+        "threshold": 0.5,
+        "accuracy": 0.841667,
+        "precision": 0.652174,
+        "recall": 0.576923,
+        "f1": 0.612245,
+        "roc_auc": 0.86293,
+        "confusion_matrix": [
+          [
+            86,
+            8
+          ],
+          [
+            11,
+            15
+          ]
+        ],
+        "tn": 86,
+        "fp": 8,
+        "fn": 11,
+        "tp": 15,
+        "classification_report_text": "              precision    recall  f1-score   support\n\nNo Churn (0)       0.89      0.91      0.90        94\n   Churn (1)       0.65      0.58      0.61        26\n\n    accuracy                           0.84       120\n   macro avg       0.77      0.75      0.76       120\nweighted avg       0.84      0.84      0.84       120",
+        "classification_report": {
+          "No Churn (0)": {
+            "precision": 0.8865979381443299,
+            "recall": 0.9148936170212766,
+            "f1-score": 0.900523560209424,
+            "support": 94
+          },
+          "Churn (1)": {
+            "precision": 0.6521739130434783,
+            "recall": 0.5769230769230769,
+            "f1-score": 0.6122448979591837,
+            "support": 26
+          },
+          "accuracy": 0.8416666666666667,
+          "macro avg": {
+            "precision": 0.7693859255939041,
+            "recall": 0.7459083469721768,
+            "f1-score": 0.7563842290843039,
+            "support": 120
+          },
+          "weighted avg": {
+            "precision": 0.8358060660391453,
+            "recall": 0.8416666666666667,
+            "f1-score": 0.8380631833885387,
+            "support": 120
+          }
+        }
+      },
+      "validation_selected_threshold": 0.375,
+      "validation_tuned_threshold_metrics": {
+        "threshold": 0.375,
+        "accuracy": 0.741667,
+        "precision": 0.444444,
+        "recall": 0.769231,
+        "f1": 0.56338,
+        "roc_auc": 0.86293,
+        "confusion_matrix": [
+          [
+            69,
+            25
+          ],
+          [
+            6,
+            20
+          ]
+        ],
+        "tn": 69,
+        "fp": 25,
+        "fn": 6,
+        "tp": 20,
+        "classification_report_text": "              precision    recall  f1-score   support\n\nNo Churn (0)       0.92      0.73      0.82        94\n   Churn (1)       0.44      0.77      0.56        26\n\n    accuracy                           0.74       120\n   macro avg       0.68      0.75      0.69       120\nweighted avg       0.82      0.74      0.76       120",
+        "classification_report": {
+          "No Churn (0)": {
+            "precision": 0.92,
+            "recall": 0.7340425531914894,
+            "f1-score": 0.8165680473372782,
+            "support": 94
+          },
+          "Churn (1)": {
+            "precision": 0.4444444444444444,
+            "recall": 0.7692307692307693,
+            "f1-score": 0.5633802816901408,
+            "support": 26
+          },
+          "accuracy": 0.7416666666666667,
+          "macro avg": {
+            "precision": 0.6822222222222223,
+            "recall": 0.7516366612111294,
+            "f1-score": 0.6899741645137094,
+            "support": 120
+          },
+          "weighted avg": {
+            "precision": 0.816962962962963,
+            "recall": 0.7416666666666667,
+            "f1-score": 0.7617106981137317,
+            "support": 120
+          }
+        }
+      },
+      "validation_threshold_curve": [
+        {
+          "threshold": 0.2,
+          "precision": 0.253731,
+          "recall": 0.809524,
+          "f1": 0.386364
+        },
+        {
+          "threshold": 0.225,
+          "precision": 0.238095,
+          "recall": 0.714286,
+          "f1": 0.357143
+        },
+        {
+          "threshold": 0.25,
+          "precision": 0.254237,
+          "recall": 0.714286,
+          "f1": 0.375
+        },
+        {
+          "threshold": 0.275,
+          "precision": 0.277778,
+          "recall": 0.714286,
+          "f1": 0.4
+        },
+        {
+          "threshold": 0.3,
+          "precision": 0.294118,
+          "recall": 0.714286,
+          "f1": 0.416667
+        },
+        {
+          "threshold": 0.325,
+          "precision": 0.317073,
+          "recall": 0.619048,
+          "f1": 0.419355
+        },
+        {
+          "threshold": 0.35,
+          "precision": 0.351351,
+          "recall": 0.619048,
+          "f1": 0.448276
+        },
+        {
+          "threshold": 0.375,
+          "precision": 0.433333,
+          "recall": 0.619048,
+          "f1": 0.509804
+        },
+        {
+          "threshold": 0.4,
+          "precision": 0.434783,
+          "recall": 0.47619,
+          "f1": 0.454545
+        },
+        {
+          "threshold": 0.425,
+          "precision": 0.409091,
+          "recall": 0.428571,
+          "f1": 0.418605
+        },
+        {
+          "threshold": 0.45,
+          "precision": 0.45,
+          "recall": 0.428571,
+          "f1": 0.439024
+        },
+        {
+          "threshold": 0.475,
+          "precision": 0.529412,
+          "recall": 0.428571,
+          "f1": 0.473684
+        },
+        {
+          "threshold": 0.5,
+          "precision": 0.5625,
+          "recall": 0.428571,
+          "f1": 0.486486
+        },
+        {
+          "threshold": 0.525,
+          "precision": 0.583333,
+          "recall": 0.333333,
+          "f1": 0.424242
+        },
+        {
+          "threshold": 0.55,
+          "precision": 0.636364,
+          "recall": 0.333333,
+          "f1": 0.4375
+        },
+        {
+          "threshold": 0.575,
+          "precision": 0.7,
+          "recall": 0.333333,
+          "f1": 0.451613
+        },
+        {
+          "threshold": 0.6,
+          "precision": 0.666667,
+          "recall": 0.285714,
+          "f1": 0.4
+        },
+        {
+          "threshold": 0.625,
+          "precision": 0.714286,
+          "recall": 0.238095,
+          "f1": 0.357143
+        },
+        {
+          "threshold": 0.65,
+          "precision": 0.666667,
+          "recall": 0.190476,
+          "f1": 0.296296
+        },
+        {
+          "threshold": 0.675,
+          "precision": 0.6,
+          "recall": 0.142857,
+          "f1": 0.230769
+        },
+        {
+          "threshold": 0.7,
+          "precision": 0.6,
+          "recall": 0.142857,
+          "f1": 0.230769
+        },
+        {
+          "threshold": 0.725,
+          "precision": 0.5,
+          "recall": 0.095238,
+          "f1": 0.16
+        },
+        {
+          "threshold": 0.75,
+          "precision": 0.5,
+          "recall": 0.047619,
+          "f1": 0.086957
+        },
+        {
+          "threshold": 0.775,
+          "precision": 1.0,
+          "recall": 0.047619,
+          "f1": 0.090909
+        },
+        {
+          "threshold": 0.8,
+          "precision": 1.0,
+          "recall": 0.047619,
+          "f1": 0.090909
+        }
+      ],
+      "roc_curve": {
+        "fpr": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.010638,
+          0.021277,
+          0.021277,
+          0.021277,
+          0.021277,
+          0.031915,
+          0.042553,
+          0.042553,
+          0.042553,
+          0.053191,
+          0.053191,
+          0.053191,
+          0.053191,
+          0.053191,
+          0.06383,
+          0.074468,
+          0.085106,
+          0.095745,
+          0.106383,
+          0.117021,
+          0.12766,
+          0.138298,
+          0.138298,
+          0.148936,
+          0.148936,
+          0.159574,
+          0.159574,
+          0.170213,
+          0.180851,
+          0.191489,
+          0.202128,
+          0.212766,
+          0.223404,
+          0.234043,
+          0.244681,
+          0.255319,
+          0.255319,
+          0.255319,
+          0.265957,
+          0.276596,
+          0.276596,
+          0.287234,
+          0.297872,
+          0.297872,
+          0.297872,
+          0.308511,
+          0.308511,
+          0.319149,
+          0.329787,
+          0.340426,
+          0.351064,
+          0.361702,
+          0.37234,
+          0.382979,
+          0.393617,
+          0.404255,
+          0.414894,
+          0.425532,
+          0.43617,
+          0.446809,
+          0.446809,
+          0.457447,
+          0.468085,
+          0.478723,
+          0.489362,
+          0.5,
+          0.510638,
+          0.521277,
+          0.531915,
+          0.542553,
+          0.553191,
+          0.56383,
+          0.574468,
+          0.585106,
+          0.595745,
+          0.606383,
+          0.617021,
+          0.617021,
+          0.62766,
+          0.638298,
+          0.648936,
+          0.659574,
+          0.670213,
+          0.680851,
+          0.691489,
+          0.702128,
+          0.712766,
+          0.723404,
+          0.734043,
+          0.744681,
+          0.755319,
+          0.765957,
+          0.776596,
+          0.787234,
+          0.797872,
+          0.808511,
+          0.819149,
+          0.829787,
+          0.840426,
+          0.851064,
+          0.861702,
+          0.87234,
+          0.882979,
+          0.893617,
+          0.904255,
+          0.914894,
+          0.925532,
+          0.93617,
+          0.946809,
+          0.957447,
+          0.968085,
+          0.978723,
+          0.989362,
+          1.0
+        ],
+        "tpr": [
+          0.0,
+          0.038462,
+          0.076923,
+          0.115385,
+          0.153846,
+          0.192308,
+          0.230769,
+          0.230769,
+          0.230769,
+          0.269231,
+          0.307692,
+          0.346154,
+          0.346154,
+          0.346154,
+          0.384615,
+          0.423077,
+          0.423077,
+          0.461538,
+          0.5,
+          0.538462,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.576923,
+          0.615385,
+          0.615385,
+          0.653846,
+          0.653846,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.692308,
+          0.730769,
+          0.769231,
+          0.769231,
+          0.769231,
+          0.807692,
+          0.807692,
+          0.807692,
+          0.846154,
+          0.884615,
+          0.884615,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.923077,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          0.961538,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "feature_importance": {
+        "permutation_importance": [
+          {
+            "feature": "Contract",
+            "importance_mean": 0.112439,
+            "importance_std": 0.029109
+          },
+          {
+            "feature": "tenure",
+            "importance_mean": 0.026432,
+            "importance_std": 0.02135
+          },
+          {
+            "feature": "MonthlyCharges",
+            "importance_mean": 0.020049,
+            "importance_std": 0.015466
+          },
+          {
+            "feature": "TotalCharges",
+            "importance_mean": 0.016694,
+            "importance_std": 0.009481
+          },
+          {
+            "feature": "Partner",
+            "importance_mean": 0.016448,
+            "importance_std": 0.005014
+          },
+          {
+            "feature": "TechSupport",
+            "importance_mean": 0.015221,
+            "importance_std": 0.00663
+          },
+          {
+            "feature": "gender",
+            "importance_mean": 0.010393,
+            "importance_std": 0.007137
+          },
+          {
+            "feature": "InternetService",
+            "importance_mean": 0.010229,
+            "importance_std": 0.022488
+          },
+          {
+            "feature": "MultipleLines",
+            "importance_mean": 0.009984,
+            "importance_std": 0.004209
+          },
+          {
+            "feature": "StreamingTV",
+            "importance_mean": 0.00982,
+            "importance_std": 0.006013
+          },
+          {
+            "feature": "OnlineSecurity",
+            "importance_mean": 0.008674,
+            "importance_std": 0.008371
+          },
+          {
+            "feature": "StreamingMovies",
+            "importance_mean": 0.008265,
+            "importance_std": 0.003894
+          },
+          {
+            "feature": "PaperlessBilling",
+            "importance_mean": 0.006792,
+            "importance_std": 0.005256
+          },
+          {
+            "feature": "OnlineBackup",
+            "importance_mean": 0.006465,
+            "importance_std": 0.001583
+          },
+          {
+            "feature": "PaymentMethod",
+            "importance_mean": 0.006056,
+            "importance_std": 0.005387
+          },
+          {
+            "feature": "Dependents",
+            "importance_mean": 0.005974,
+            "importance_std": 0.001859
+          },
+          {
+            "feature": "DeviceProtection",
+            "importance_mean": 0.001964,
+            "importance_std": 0.018091
+          },
+          {
+            "feature": "PhoneService",
+            "importance_mean": 0.000573,
+            "importance_std": 0.001054
+          },
+          {
+            "feature": "SeniorCitizen",
+            "importance_mean": -0.000245,
+            "importance_std": 0.001384
+          }
+        ],
+        "internal_transformed_importance": [
+          {
+            "transformed_feature": "num__tenure",
+            "importance": 0.130276,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "num__MonthlyCharges",
+            "importance": 0.100008,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "num__TotalCharges",
+            "importance": 0.092287,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__Contract_Month-to-month",
+            "importance": 0.072681,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__InternetService_Fiber optic",
+            "importance": 0.040855,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__Contract_Two year",
+            "importance": 0.040686,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__InternetService_DSL",
+            "importance": 0.023828,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__Contract_One year",
+            "importance": 0.023732,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__TechSupport_No",
+            "importance": 0.022441,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__Partner_Yes",
+            "importance": 0.019778,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__gender_Female",
+            "importance": 0.019158,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__OnlineSecurity_Yes",
+            "importance": 0.018935,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__gender_Male",
+            "importance": 0.01879,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__PaymentMethod_Mailed check",
+            "importance": 0.017889,
+            "direction": "unsigned_gini"
+          },
+          {
+            "transformed_feature": "cat__DeviceProtection_Yes",
+            "importance": 0.017272,
+            "direction": "unsigned_gini"
+          }
+        ]
+      },
+      "illustrative_retention_prioritization": {
+        "disclaimer": "Illustrative prioritization analysis only. Outreach costs ($15/customer) and tier sizes are hypothetical examples; real-world churn reduction requires an experimental A/B retention intervention study.",
+        "test_set_customers": 120,
+        "test_set_actual_churners": 26,
+        "baseline_churn_rate": 0.2167,
+        "tiers": [
+          {
+            "tier_label": "Top 10% Highest Risk",
+            "fraction_contacted": 0.1,
+            "customers_contacted": 12,
+            "min_probability_in_tier": 0.5654,
+            "true_churners_in_tier": 9,
+            "precision_in_tier": 0.75,
+            "share_of_all_churners_captured": 0.3462,
+            "lift_over_random_outreach": 3.46,
+            "illustrative_outreach_cost_usd": 180.0
+          },
+          {
+            "tier_label": "Top 20% Highest Risk (Default Budget)",
+            "fraction_contacted": 0.2,
+            "customers_contacted": 24,
+            "min_probability_in_tier": 0.4922,
+            "true_churners_in_tier": 15,
+            "precision_in_tier": 0.625,
+            "share_of_all_churners_captured": 0.5769,
+            "lift_over_random_outreach": 2.88,
+            "illustrative_outreach_cost_usd": 360.0
+          },
+          {
+            "tier_label": "Top 30% Highest Risk",
+            "fraction_contacted": 0.3,
+            "customers_contacted": 36,
+            "min_probability_in_tier": 0.4221,
+            "true_churners_in_tier": 18,
+            "precision_in_tier": 0.5,
+            "share_of_all_churners_captured": 0.6923,
+            "lift_over_random_outreach": 2.31,
+            "illustrative_outreach_cost_usd": 540.0
+          }
+        ]
+      },
+      "predicted_probabilities_sample": [
+        0.121325,
+        0.359109,
+        0.510495,
+        0.492179,
+        0.176547,
+        0.131742,
+        0.052112,
+        0.15586,
+        0.431735,
+        0.438344,
+        0.341392,
+        0.015286,
+        0.71133,
+        0.422136,
+        0.234459,
+        0.408323,
+        0.332127,
+        0.197276,
+        0.565412,
+        0.129565
+      ]
+    }
+  },
+  "artifacts": {
+    "comparison_csv": "results/synthetic_verification/model_comparison.csv",
+    "comparison_markdown": "results/synthetic_verification/model_comparison.md",
+    "test_predictions_csv": "results/synthetic_verification/test_predictions.csv",
+    "plots": {
+      "metric_comparison": "results/synthetic_verification/model_comparison.png",
+      "confusion_matrices": "results/synthetic_verification/confusion_matrices.png",
+      "roc_curves": "results/synthetic_verification/roc_curves.png",
+      "feature_importance": "results/synthetic_verification/feature_importance.png",
+      "threshold_analysis": "results/synthetic_verification/threshold_analysis.png"
+    },
+    "saved_models": {
+      "logistic_regression": "results/synthetic_verification/models/logistic_regression.joblib",
+      "random_forest": "results/synthetic_verification/models/random_forest.joblib"
+    }
+  }
+}

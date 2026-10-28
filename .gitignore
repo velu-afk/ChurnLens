@@ -1,0 +1,36 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Packaging / build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Test and lint caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Raw and processed dataset files (do not commit third-party datasets)
+data/raw/
+data/processed/
+*.csv
+!results/**/*.csv
+
+# Large binary model artifacts (keep compact metadata, CSVs, and plots)
+*.joblib
+*.pkl
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
