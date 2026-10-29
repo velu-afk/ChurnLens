@@ -224,8 +224,6 @@ ChurnLens/
 ├── docs/
 │   ├── methodology.md
 │   ├── architecture.md
-│   ├── interview_guide.md
-│   ├── interview_defense.md
 │   └── limitations.md
 ├── results/
 │   └── .gitkeep
@@ -236,12 +234,10 @@ ChurnLens/
 
 ---
 
-## 12. Documentation & Interview Guides
+## 12. Documentation
 
 - **[`docs/methodology.md`](docs/methodology.md)** — Problem formulation, leakage prevention, 3-way stratified split, metrics, and permutation importance.
 - **[`docs/architecture.md`](docs/architecture.md)** — Pipeline data flow and module responsibilities.
-- **[`docs/interview_guide.md`](docs/interview_guide.md)** — Beginner-friendly guide to all 15 ML concepts used in this repository.
-- **[`docs/interview_defense.md`](docs/interview_defense.md)** — 30-second pitch, 2-minute walkthrough, 24 interview Q&As, 12 deep-dive follow-ups, verified resume bullets, and a 5-hour study plan.
 - **[`docs/limitations.md`](docs/limitations.md)** — Causal, temporal, uplift, and fairness limitations.
 
 ---
